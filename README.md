@@ -1,2 +1,2 @@
 # realstateapp
-Aplicación móvil para una inmoviliaria
+Aplicación móvil para una inmobiliaria
