@@ -51,7 +51,7 @@ const config = {
     ip: process.env.IP || undefined,
     port: process.env.PORT || 8080,
     mongo: {
-      uri: process.env.MONGODB_URI || 'mongodb://localhost/realstate'
+      uri: process.env.MONGODB_URI || 'mongodb://admin:admin1234@ds253284.mlab.com:53284/realstateapp'
     }
   }
 }

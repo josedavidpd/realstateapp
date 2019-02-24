@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProperties"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/property_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="94dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/imagenprueba" />
+
+        <TextView
+            android:id="@+id/property_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="500.000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/property_photo" />
+
+        <TextView
+            android:id="@+id/property_tv_euros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="€"
+            app:layout_constraintStart_toEndOf="@+id/property_price"
+            app:layout_constraintTop_toBottomOf="@+id/property_photo" />
+
+        <TextView
+            android:id="@+id/property_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="Calle Serrano, Madrid 41005"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/property_price" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="179dp" />
+
+        <ImageView
+            android:id="@+id/property_iv_rooms"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="TODO"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/property_address"
+            app:srcCompat="@drawable/ic_cama" />
+
+        <TextView
+            android:id="@+id/property_rooms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/property_iv_rooms"
+            app:layout_constraintTop_toBottomOf="@+id/property_address" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="1dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="#9e9e9e"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/property_rooms" />
+
+        <ImageView
+            android:id="@+id/property_iv_size"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/property_address"
+            app:srcCompat="@drawable/ic_dimension" />
+
+        <TextView
+            android:id="@+id/property_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/property_metros"
+            app:layout_constraintStart_toEndOf="@+id/property_iv_size"
+            app:layout_constraintTop_toBottomOf="@+id/property_address" />
+
+        <TextView
+            android:id="@+id/property_metros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/ubuntu_light"
+            android:text="m²"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/property_size"
+            app:layout_constraintTop_toBottomOf="@+id/property_address" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

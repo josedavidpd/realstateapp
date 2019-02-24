@@ -18,8 +18,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
         rows: properties.map((property) => {
           property.photo = 'https://static10.habimg.com/imgh/3856-1171394/obra-nueva-alquiler-santa_coloma_de_gramenet_3856-img1171394-5678175.jpg' 
           Photo.find({propertyId: property.id})
-            .then((photos) => {
-              
+            .then((photos) => {              
             })
           return property
         })

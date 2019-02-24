@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_casa"
+            android:title="Inicio" />
+        <item
+            android:id="@+id/nav_properties"
+            android:icon="@drawable/ic_casa_property"
+            android:title="Inmuebles" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_corazon"
+            android:title="Mis favoritos" />
+        <item
+            android:id="@+id/nav_myproperties"
+            android:checkable="false"
+            android:icon="@drawable/ic_inmobiliario"
+            android:title="Mis inmuebles" />
+    </group>
+
+        <item android:title="Configuración">
+        <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_perfil"
+                android:title="Mi perfil" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Cerrar sesión" />
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/ic_usuario"
+                android:title="Iniciar sesión" />
+            <item
+                android:id="@+id/nav_register"
+                android:icon="@drawable/ic_group_add_black_24dp"
+                android:title="Registrarse" />
+        </menu>
+    </item>
+
+</menu>
