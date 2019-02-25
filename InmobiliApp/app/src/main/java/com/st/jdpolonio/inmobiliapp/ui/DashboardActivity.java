@@ -1,6 +1,7 @@
 package com.st.jdpolonio.inmobiliapp.ui;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.fragments_list.PropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
 import com.st.jdpolonio.inmobiliapp.models.User;
+import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
 import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.retrofit.TipoAutenticacion;
@@ -48,6 +50,7 @@ public class DashboardActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         findViewsById();
         toolbar.setTitle("Inmuebles");
         setSupportActionBar(toolbar);
@@ -185,7 +188,11 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
-    public void OnClickProperty() {
+    public void OnClickProperty(PropertyResponse property) {
+        Intent details = new Intent(DashboardActivity.this, PropertyDetailActivity.class);
+        details.putExtra("PROPERTY_ID", property.getId());
+        details.putExtra("PROPERTY_NAME", property.getTitle());
+        startActivity(details);
 
 
     }

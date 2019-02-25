@@ -2,6 +2,7 @@ package com.st.jdpolonio.inmobiliapp.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,13 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             }
         });
 
+        holder.cardViewProperties.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.OnClickProperty(holder.mItem);
+            }
+        });
+
 
 
         /*if (holder.favourite.getDrawable().getConstantState().equals(holder.favourite.getResources().getDrawable(R.drawable.ic_corazon).getConstantState())) {
@@ -105,6 +113,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         public final View mView;
         public final TextView address, price, rooms, size;
         public final ImageView photo, favourite;
+        public final CardView cardViewProperties;
         public PropertyResponse mItem;
 
         public ViewHolder(View view) {
@@ -116,6 +125,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             size = view.findViewById(R.id.property_size);
             photo = view.findViewById(R.id.property_photo);
             favourite = view.findViewById(R.id.property_fav);
+            cardViewProperties = view.findViewById(R.id.cardViewProperties);
 
         }
 
