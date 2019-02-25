@@ -43,6 +43,7 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent goLogin = new Intent(RegistroActivity.this, LoginActivity.class);
                 startActivity(goLogin);
+                finish();
             }
         });
 

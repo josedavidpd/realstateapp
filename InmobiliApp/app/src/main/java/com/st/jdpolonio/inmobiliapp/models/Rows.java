@@ -1,10 +1,6 @@
-package com.st.jdpolonio.inmobiliapp.responses;
+package com.st.jdpolonio.inmobiliapp.models;
 
-
-import com.st.jdpolonio.inmobiliapp.models.Category;
-import com.st.jdpolonio.inmobiliapp.models.User;
-
-public class PropertyResponse {
+public class Rows {
 
     private String id;
     private User ownerId;
@@ -22,7 +18,7 @@ public class PropertyResponse {
 
 
 
-    public PropertyResponse() {}
+    public Rows() {}
 
     public String getCreatedAt() {
         return createdAt;
@@ -127,4 +123,5 @@ public class PropertyResponse {
     public void setProvince(String province) {
         this.province = province;
     }
+
 }

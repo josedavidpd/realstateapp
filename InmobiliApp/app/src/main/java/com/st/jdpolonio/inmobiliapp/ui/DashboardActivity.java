@@ -119,16 +119,19 @@ public class DashboardActivity extends AppCompatActivity
     /** Menú lateral **/
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        f = null;
 
-        if (id == R.id.nav_home) {
-
-        } else if (id == R.id.nav_properties) {
+        if (id == R.id.nav_properties) {
+            f = new PropertiesListFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "propertiesFragment").commit();
 
         } else if (id == R.id.nav_favorites) {
+
 
         } else if (id == R.id.nav_myproperties) {
 
         } else if (id == R.id.nav_profile) {
+            startActivity(new Intent(DashboardActivity.this,MyProfileActivity.class));
 
         } else if (id == R.id.nav_logout) {
             Util.clearSharedPreferences(DashboardActivity.this);
@@ -192,6 +195,7 @@ public class DashboardActivity extends AppCompatActivity
         Intent details = new Intent(DashboardActivity.this, PropertyDetailActivity.class);
         details.putExtra("PROPERTY_ID", property.getId());
         details.putExtra("PROPERTY_NAME", property.getTitle());
+        details.putExtra("PROPERTY_ADDRESS", property.getAddress());
         startActivity(details);
 
 

@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_applogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.PropertyDetailActivity"></activity>
+        <activity android:name=".ui.MyProfileActivity"></activity>
+        <activity android:name=".ui.PropertyDetailActivity" />
         <activity
             android:name=".ui.DashboardActivity"
             android:label="@string/title_activity_dashboard"
