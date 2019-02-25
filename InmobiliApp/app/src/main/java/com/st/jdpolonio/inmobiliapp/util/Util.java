@@ -3,6 +3,8 @@ package com.st.jdpolonio.inmobiliapp.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.st.jdpolonio.inmobiliapp.models.User;
+
 public class Util {
 
     public static void setData(Context ctx, String token, String user_id, String user_email, String user_name, String user_photo) {
@@ -16,6 +18,16 @@ public class Util {
         editor.putString("fotoUser", user_photo);
         editor.commit();
 
+    }
+
+    public static User getUserLogged(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String id = prefs.getString("idUser",null);
+        String email= prefs.getString("emailUser",null);
+        String name= prefs.getString("nombreUser",null);
+        String picture = prefs.getString("fotoUser",null);
+        User user = new User(id,email,name,picture);
+        return user;
     }
 
     public static String getToken(Context ctx) {

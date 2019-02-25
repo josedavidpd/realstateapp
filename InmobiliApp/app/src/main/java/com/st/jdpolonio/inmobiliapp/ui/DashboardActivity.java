@@ -16,12 +16,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.fragments_list.PropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
+import com.st.jdpolonio.inmobiliapp.models.User;
+import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
+import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
+import com.st.jdpolonio.inmobiliapp.retrofit.TipoAutenticacion;
+import com.st.jdpolonio.inmobiliapp.services.PropertyService;
 import com.st.jdpolonio.inmobiliapp.util.Util;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnListFragmentPropertiesListener {
@@ -50,8 +60,6 @@ public class DashboardActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
-
-
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -179,5 +187,70 @@ public class DashboardActivity extends AppCompatActivity
     @Override
     public void OnClickProperty() {
 
+
+    }
+
+    @Override
+    public void onClickFav(ImageView ic_fav, String id_property, User user) {
+
+        addToFav(ic_fav, id_property, user);
+    }
+
+    @Override
+    public void onClickDeletFav(ImageView ic_fav, String id_property, User user) {
+        deleteFav(ic_fav, id_property, user);
+
+    }
+
+    public void addToFav(final ImageView ic_fav, String id_property, User user) {
+        PropertyService service = ServiceGenerator.createService(PropertyService.class,
+                Util.getToken(DashboardActivity.this), TipoAutenticacion.JWT);
+
+        Call<UserResponse> call = service.addToFav(id_property, user);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    ic_fav.setImageResource(R.drawable.ic_like);
+                    Toast.makeText(DashboardActivity.this, "Inmueble añadido a favoritos", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DashboardActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+
+                Toast.makeText(DashboardActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    public void deleteFav(final ImageView ic_fav, String id_property, User user) {
+        PropertyService service = ServiceGenerator.createService(PropertyService.class,
+                Util.getToken(DashboardActivity.this), TipoAutenticacion.JWT);
+
+        Call<UserResponse> call = service.deleteFav(id_property, user);
+        call.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.isSuccessful()) {
+                    ic_fav.setImageResource(R.drawable.ic_corazon);
+                    Toast.makeText(DashboardActivity.this, "Inmueble eliminado de favoritos", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(DashboardActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+
+                Toast.makeText(DashboardActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

@@ -101,8 +101,6 @@ public class LoginActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     onLoginFail();
                 }
-
-
             }
 
             @Override

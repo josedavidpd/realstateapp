@@ -1,5 +1,6 @@
 package com.st.jdpolonio.inmobiliapp.models;
 
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -7,17 +8,32 @@ public class User {
     private String id;
     private String email;
     private String password;
+    private List<String> favs;
     private String name;
     private String picture;
 
     public User() {
     }
 
-    public User(String email, String password, String name, String picture) {
+    public User(String id, String email,String name, String picture) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.picture = picture;
+    }
+
+    public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.picture = picture;
+    }
+
+    public List<String> getFavs() {
+        return favs;
+    }
+
+    public void setFavs(List<String> favs) {
+        this.favs = favs;
     }
 
     public String getId() {

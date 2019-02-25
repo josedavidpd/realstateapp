@@ -1,6 +1,7 @@
 package com.st.jdpolonio.inmobiliapp.responses;
 
 
+import com.st.jdpolonio.inmobiliapp.models.Category;
 import com.st.jdpolonio.inmobiliapp.models.User;
 
 public class PropertyResponse {
@@ -12,7 +13,7 @@ public class PropertyResponse {
     private double price;
     private int rooms;
     private float size;
-    private String categoryId;
+    private Category categoryId;
     private String address;
     private String zipcode;
     private String city;
@@ -78,11 +79,11 @@ public class PropertyResponse {
         this.size = size;
     }
 
-    public String getCategoryId() {
+    public Category getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Category categoryId) {
         this.categoryId = categoryId;
     }
 
