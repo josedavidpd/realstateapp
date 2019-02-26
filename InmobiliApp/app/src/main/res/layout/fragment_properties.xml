@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/property_fav_photo"
+            android:id="@+id/my_property_photo"
             android:layout_width="wrap_content"
             android:layout_height="94dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/imagenprueba" />
 
         <TextView
-            android:id="@+id/property_fav_price"
+            android:id="@+id/my_property_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -32,7 +32,7 @@
             android:fontFamily="@font/ubuntu_light"
             android:text="500.000"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_photo" />
+            app:layout_constraintTop_toBottomOf="@+id/my_property_photo" />
 
         <TextView
             android:id="@+id/property_tv_euros"
@@ -42,11 +42,11 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/ubuntu_light"
             android:text="€"
-            app:layout_constraintStart_toEndOf="@+id/property_fav_price"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_photo" />
+            app:layout_constraintStart_toEndOf="@+id/my_property_price"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_photo" />
 
         <TextView
-            android:id="@+id/property_fav_address"
+            android:id="@+id/my_property_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -56,7 +56,7 @@
             android:text="Calle Serrano, Madrid 41005"
             app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_price" />
+            app:layout_constraintTop_toBottomOf="@+id/my_property_price" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -66,7 +66,7 @@
             app:layout_constraintGuide_begin="179dp" />
 
         <ImageView
-            android:id="@+id/property_fav_iv_rooms"
+            android:id="@+id/my_property_iv_rooms"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginStart="24dp"
@@ -75,11 +75,11 @@
             android:contentDescription="TODO"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_address"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_address"
             app:srcCompat="@drawable/ic_cama" />
 
         <TextView
-            android:id="@+id/property_fav_rooms"
+            android:id="@+id/my_property_rooms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -88,8 +88,8 @@
             android:fontFamily="@font/ubuntu_light"
             android:text="3"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/property_fav_iv_rooms"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_address" />
+            app:layout_constraintStart_toEndOf="@+id/my_property_iv_rooms"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_address" />
 
         <View
             android:id="@+id/view"
@@ -99,10 +99,10 @@
             android:layout_marginBottom="8dp"
             android:background="#9e9e9e"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/property_fav_rooms" />
+            app:layout_constraintStart_toEndOf="@+id/my_property_rooms" />
 
         <ImageView
-            android:id="@+id/property_fav_iv_size"
+            android:id="@+id/my_property_iv_size"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="16dp"
@@ -110,11 +110,11 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_address"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_address"
             app:srcCompat="@drawable/ic_dimension" />
 
         <TextView
-            android:id="@+id/property_fav_size"
+            android:id="@+id/my_property_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -124,8 +124,8 @@
             android:text="20"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/property_fav_metros"
-            app:layout_constraintStart_toEndOf="@+id/property_fav_iv_size"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_address" />
+            app:layout_constraintStart_toEndOf="@+id/my_property_iv_size"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_address" />
 
         <TextView
             android:id="@+id/property_fav_metros"
@@ -137,8 +137,8 @@
             android:fontFamily="@font/ubuntu_light"
             android:text="m²"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/property_fav_size"
-            app:layout_constraintTop_toBottomOf="@+id/property_fav_address" />
+            app:layout_constraintStart_toEndOf="@+id/my_property_size"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_address" />
 
         <ImageView
             android:id="@+id/property_fav"

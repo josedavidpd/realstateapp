@@ -54,10 +54,10 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             holder.favourite.setVisibility(View.INVISIBLE);
         }
 
-        if (holder.mItem.isFav()== false) {
-            holder.favourite.setImageResource(R.drawable.ic_corazon);
-        } else {
+        if (mValues.get(position).getIsFav()) {
             holder.favourite.setImageResource(R.drawable.ic_like);
+        } else {
+            holder.favourite.setImageResource(R.drawable.ic_corazon);
         }
 
 
@@ -72,6 +72,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
 
             }
         });
+
 
         holder.cardViewProperties.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,11 +99,11 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            address = view.findViewById(R.id.property_fav_address);
-            price = view.findViewById(R.id.property_fav_price);
-            rooms = view.findViewById(R.id.property_fav_rooms);
-            size = view.findViewById(R.id.property_fav_size);
-            photo = view.findViewById(R.id.property_fav_photo);
+            address = view.findViewById(R.id.my_property_address);
+            price = view.findViewById(R.id.my_property_price);
+            rooms = view.findViewById(R.id.my_property_rooms);
+            size = view.findViewById(R.id.my_property_size);
+            photo = view.findViewById(R.id.my_property_photo);
             favourite = view.findViewById(R.id.property_fav);
             cardViewProperties = view.findViewById(R.id.cardViewProperties);
 

@@ -23,10 +23,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.fragments_list.MyFavouritesListFragment;
+import com.st.jdpolonio.inmobiliapp.fragments_list.MyPropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.PropertiesListFragment;
+import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentMyPropertiesListener;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
 import com.st.jdpolonio.inmobiliapp.models.User;
+import com.st.jdpolonio.inmobiliapp.responses.MinePropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
@@ -40,7 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnListFragmentPropertiesListener, OnListMyFavouritesListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnListFragmentPropertiesListener, OnListMyFavouritesListener, OnListFragmentMyPropertiesListener {
 
     private Toolbar toolbar;
     private FloatingActionButton fab;
@@ -68,6 +71,8 @@ public class DashboardActivity extends AppCompatActivity
             }
         });*/
 
+        if(Util.getToken(DashboardActivity.this) == null)
+            fab.hide();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -128,8 +133,11 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_properties) {
+            if(Util.getToken(DashboardActivity.this) == null)
+                fab.hide();
+            else
+                fab.show();
 
-            fab.show();
             f = new PropertiesListFragment();
 
             toolbar.setTitle("Inmuebles");
@@ -143,6 +151,7 @@ public class DashboardActivity extends AppCompatActivity
 
             f = new MyFavouritesListFragment();
             toolbar.setTitle("Favoritos");
+
             fab.hide();
 
             getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "favsPropertiesFragment").commit();
@@ -150,6 +159,11 @@ public class DashboardActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_myproperties) {
+            f = new MyPropertiesListFragment();
+            toolbar.setTitle("Mis inmuebles");
+            fab.hide();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "myPropertiesFragment").commit();
 
         } else if (id == R.id.nav_profile) {
             startActivity(new Intent(DashboardActivity.this,MyProfileActivity.class));
@@ -193,8 +207,6 @@ public class DashboardActivity extends AppCompatActivity
 
         }
 
-    //Este comentario es para jose david, ere un tonto tio
-        //todo el dia pidiendome ayuda tssssss
 
     }
 
@@ -205,6 +217,7 @@ public class DashboardActivity extends AppCompatActivity
             nav_Menu.findItem(R.id.nav_logout).setVisible(false);
             nav_Menu.findItem(R.id.nav_favorites).setVisible(false);
             nav_Menu.findItem(R.id.nav_profile).setVisible(false);
+            nav_Menu.findItem(R.id.nav_myproperties).setVisible(false);
 
         } else {
             nav_Menu.findItem(R.id.nav_login).setVisible(false);
@@ -219,6 +232,11 @@ public class DashboardActivity extends AppCompatActivity
         details.putExtra("PROPERTY_ID", property.getId());
         details.putExtra("PROPERTY_NAME", property.getTitle());
         details.putExtra("PROPERTY_ADDRESS", property.getAddress());
+        details.putExtra("PROPERTY_PRICE", String.valueOf(property.getPrice()));
+        details.putExtra("PROPERTY_ROOMS", String.valueOf(property.getRooms()));
+        details.putExtra("PROPERTY_SIZE", String.valueOf(property.getSize()));
+        details.putExtra("PROPERTY_DESCRIPTION", property.getDescription());
+        details.putExtra("PROPERTY_CREATEDAT", property.getCreatedAt());
         startActivity(details);
 
 
@@ -294,7 +312,28 @@ public class DashboardActivity extends AppCompatActivity
         details.putExtra("PROPERTY_ID", property.getId());
         details.putExtra("PROPERTY_NAME", property.getTitle());
         details.putExtra("PROPERTY_ADDRESS", property.getAddress());
+        details.putExtra("PROPERTY_PRICE", String.valueOf(property.getPrice()));
+        details.putExtra("PROPERTY_ROOMS", String.valueOf(property.getRooms()));
+        details.putExtra("PROPERTY_SIZE", String.valueOf(property.getSize()));
+        details.putExtra("PROPERTY_DESCRIPTION", property.getDescription());
+        details.putExtra("PROPERTY_CREATEDAT", property.getCreatedAt());
+
+
         startActivity(details);
 
+    }
+
+    @Override
+    public void onClickMyProp(MinePropertyResponse property) {
+        Intent details = new Intent(DashboardActivity.this, PropertyDetailActivity.class);
+        details.putExtra("PROPERTY_ID", property.getId());
+        details.putExtra("PROPERTY_NAME", property.getTitle());
+        details.putExtra("PROPERTY_ADDRESS", property.getAddress());
+        details.putExtra("PROPERTY_PRICE", String.valueOf(property.getPrice()));
+        details.putExtra("PROPERTY_ROOMS", String.valueOf(property.getRooms()));
+        details.putExtra("PROPERTY_SIZE", String.valueOf(property.getSize()));
+        details.putExtra("PROPERTY_DESCRIPTION", property.getDescription());
+        details.putExtra("PROPERTY_CREATEDAT", property.getCreatedAt());
+        startActivity(details);
     }
 }

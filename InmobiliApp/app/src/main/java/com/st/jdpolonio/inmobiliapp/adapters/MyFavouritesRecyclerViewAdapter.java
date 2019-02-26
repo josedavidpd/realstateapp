@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
-import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 
 import java.util.List;
 
@@ -69,13 +68,12 @@ public class MyFavouritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavo
 
         public ViewHolder(View view) {
             super(view);
-            address_fav = view.findViewById(R.id.property_fav_address);
-            price_fav = view.findViewById(R.id.property_fav_price);
-            rooms_fav = view.findViewById(R.id.property_fav_rooms);
-            size_fav = view.findViewById(R.id.property_fav_size);
-            photo_fav = view.findViewById(R.id.property_fav_photo);
+            address_fav = view.findViewById(R.id.my_property_address);
+            price_fav = view.findViewById(R.id.my_property_price);
+            rooms_fav = view.findViewById(R.id.my_property_rooms);
+            size_fav = view.findViewById(R.id.my_property_size);
+            photo_fav = view.findViewById(R.id.my_property_photo);
             cardViewFavProperties = view.findViewById(R.id.cardViewFavProperties);
-
             mView = view;
         }
 

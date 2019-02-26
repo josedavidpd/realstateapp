@@ -1,13 +1,11 @@
 package com.st.jdpolonio.inmobiliapp.responses;
 
-
 import com.st.jdpolonio.inmobiliapp.models.Category;
-import com.st.jdpolonio.inmobiliapp.models.User;
 
-public class PropertyResponse {
+public class MinePropertyResponse {
 
     private String id;
-    private User ownerId;
+    private String ownerId;
     private String title;
     private String description;
     private double price;
@@ -19,19 +17,10 @@ public class PropertyResponse {
     private String city;
     private String province;
     private String createdAt;
-    private boolean isFav;
 
 
 
-    public PropertyResponse() {}
-
-    public boolean getIsFav() {
-        return isFav;
-    }
-
-    public void setFav(boolean fav) {
-        isFav = fav;
-    }
+    public MinePropertyResponse() {}
 
     public String getCreatedAt() {
         return createdAt;
@@ -49,11 +38,11 @@ public class PropertyResponse {
         this.id = id;
     }
 
-    public User getOwnerId() {
+    public String getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(User ownerId) {
+    public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 

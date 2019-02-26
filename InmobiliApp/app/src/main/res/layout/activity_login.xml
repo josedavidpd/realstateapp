@@ -33,10 +33,10 @@
                     android:hint="Correo electrónico"
                     android:inputType="textEmailAddress"
                     android:letterSpacing="0.1"
-                    android:text="josedavid@email.com"
+                    android:text="admin22@admin.com"
                     android:textColor="#fff"
                     android:textColorHint="#d9e5f3"
-                    android:textSize="16dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,7 +66,7 @@
                     android:text="123456"
                     android:textColor="#fff"
                     android:textColorHint="#d9e5f3"
-                    android:textSize="16dp" />
+                    android:textSize="14sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

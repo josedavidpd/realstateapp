@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class PropertyDetailActivity extends AppCompatActivity {
 
-    private String property_id, title, address;
+    private String property_id, title, address, rooms, price, size, description, createdAt;
     private SliderLayout sliderLayout;
     private TextView title_prop, price_prop, address_prop, rooms_prop, size_prop, createdAt_prop, description_prop;
     private ImageView iv_map;
@@ -44,6 +44,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
             property_id = extras.getString("PROPERTY_ID");
             title = extras.getString("PROPERTY_NAME");
             address = extras.getString("PROPERTY_ADDRESS");
+            rooms = extras.getString("PROPERTY_ROOMS");
+            price = extras.getString("PROPERTY_PRICE");
+            size = extras.getString("PROPERTY_SIZE");
+            description = extras.getString("PROPERTY_DESCRIPTION");
+            createdAt = extras.getString("PROPERTY_CREATEDAT");
         }
         setTitle(title);
         findViewsById();
@@ -52,8 +57,20 @@ public class PropertyDetailActivity extends AppCompatActivity {
         sliderLayout.setSliderTransformAnimation(SliderAnimations.FADETRANSFORMATION);
         sliderLayout.setScrollTimeInSec(5);
         setSliderViews();
-        findOneProperty();
+        setTexts();
+      //  findOneProperty();
         onClickMapBtn();
+
+    }
+
+    public void setTexts() {
+        title_prop.setText(title);
+        price_prop.setText(price);
+        address_prop.setText(address);
+        rooms_prop.setText(rooms);
+        size_prop.setText(size);
+        createdAt_prop.setText(createdAt);
+        description_prop.setText(description);
 
     }
 
@@ -80,7 +97,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SingleResponseContainer> call, Throwable t) {
-                Log.i("AAAAAAAAAAAAAA", t.getMessage());
                 Toast.makeText(PropertyDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
