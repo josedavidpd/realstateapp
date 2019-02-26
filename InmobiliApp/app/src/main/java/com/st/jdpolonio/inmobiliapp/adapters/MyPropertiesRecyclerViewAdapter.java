@@ -1,7 +1,6 @@
 package com.st.jdpolonio.inmobiliapp.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
-import com.st.jdpolonio.inmobiliapp.models.Property;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.util.Util;
 
@@ -35,6 +33,8 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_properties, parent, false);
+
+
         return new ViewHolder(view);
     }
 
@@ -54,8 +54,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             holder.favourite.setVisibility(View.INVISIBLE);
         }
 
-
-        if (holder.mItem.getOwnerId().getFavs() == null) {
+        if (holder.mItem.isFav()== false) {
             holder.favourite.setImageResource(R.drawable.ic_corazon);
         } else {
             holder.favourite.setImageResource(R.drawable.ic_like);
@@ -66,9 +65,9 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             @Override
             public void onClick(View v) {
                 if (holder.favourite.getDrawable().getConstantState().equals(holder.favourite.getResources().getDrawable(R.drawable.ic_corazon).getConstantState())) {
-                    mListener.onClickFav(holder.favourite, holder.mItem.getId(), holder.mItem.getOwnerId());
+                    mListener.onClickFav(holder.favourite, holder.mItem.getId());
                 } else {
-                    mListener.onClickDeletFav(holder.favourite, holder.mItem.getId(), holder.mItem.getOwnerId());
+                    mListener.onClickDeletFav(holder.favourite, holder.mItem.getId());
                 }
 
             }
@@ -80,26 +79,6 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
                 mListener.OnClickProperty(holder.mItem);
             }
         });
-
-
-
-        /*if (holder.favourite.getDrawable().getConstantState().equals(holder.favourite.getResources().getDrawable(R.drawable.ic_corazon).getConstantState())) {
-
-            holder.favourite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onClickFav(holder.favourite, holder.mItem.getId(), holder.mItem.getOwnerId());
-                }
-            });
-        }*/
-        /*else if((holder.favourite.getDrawable().getConstantState().equals(holder.favourite.getResources().getDrawable(R.drawable.ic_like).getConstantState()))){
-            holder.favourite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.onClickDeletFav(holder.favourite, holder.mItem.getId(), holder.mItem.getOwnerId());
-                }
-            });
-        }*/
 
 
     }
@@ -119,11 +98,11 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            address = view.findViewById(R.id.property_address);
-            price = view.findViewById(R.id.property_price);
-            rooms = view.findViewById(R.id.property_rooms);
-            size = view.findViewById(R.id.property_size);
-            photo = view.findViewById(R.id.property_photo);
+            address = view.findViewById(R.id.property_fav_address);
+            price = view.findViewById(R.id.property_fav_price);
+            rooms = view.findViewById(R.id.property_fav_rooms);
+            size = view.findViewById(R.id.property_fav_size);
+            photo = view.findViewById(R.id.property_fav_photo);
             favourite = view.findViewById(R.id.property_fav);
             cardViewProperties = view.findViewById(R.id.cardViewProperties);
 

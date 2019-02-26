@@ -1,10 +1,9 @@
 package com.st.jdpolonio.inmobiliapp.responses;
 
-
 import com.st.jdpolonio.inmobiliapp.models.Category;
 import com.st.jdpolonio.inmobiliapp.models.User;
 
-public class PropertyResponse {
+public class PropertyAuthResponse {
 
     private String id;
     private User ownerId;
@@ -23,7 +22,7 @@ public class PropertyResponse {
 
 
 
-    public PropertyResponse() {}
+    public PropertyAuthResponse() {}
 
     public boolean isFav() {
         return isFav;

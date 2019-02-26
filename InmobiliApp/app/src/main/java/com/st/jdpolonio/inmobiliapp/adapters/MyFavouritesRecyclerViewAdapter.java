@@ -1,0 +1,87 @@
+package com.st.jdpolonio.inmobiliapp.adapters;
+
+import android.content.Context;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.st.jdpolonio.inmobiliapp.R;
+import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
+import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
+import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
+
+import java.util.List;
+
+
+public class MyFavouritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavouritesRecyclerViewAdapter.ViewHolder> {
+
+    private final List<PropertyFavResponse> mValues;
+    private final OnListMyFavouritesListener mListener;
+    private Context ctx;
+
+    public MyFavouritesRecyclerViewAdapter(Context ctx, int layout, List<PropertyFavResponse> items, OnListMyFavouritesListener listener) {
+        mValues = items;
+        mListener = listener;
+        this.ctx = ctx;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_myfavourites, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        holder.mItem = mValues.get(position);
+        holder.address_fav.setText(holder.mItem.getAddress());
+        holder.price_fav.setText(String.valueOf(holder.mItem.getPrice()));
+        holder.rooms_fav.setText(String.valueOf(holder.mItem.getRooms()));
+        holder.size_fav.setText(String.valueOf(holder.mItem.getSize()));
+
+        holder.cardViewFavProperties.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onClickPropfav(holder.mItem);
+            }
+        });
+
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mValues.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public final View mView;
+        public final TextView address_fav, price_fav, rooms_fav, size_fav;
+        public final ImageView photo_fav;
+        public final CardView cardViewFavProperties;
+        public PropertyFavResponse mItem;
+
+        public ViewHolder(View view) {
+            super(view);
+            address_fav = view.findViewById(R.id.property_fav_address);
+            price_fav = view.findViewById(R.id.property_fav_price);
+            rooms_fav = view.findViewById(R.id.property_fav_rooms);
+            size_fav = view.findViewById(R.id.property_fav_size);
+            photo_fav = view.findViewById(R.id.property_fav_photo);
+            cardViewFavProperties = view.findViewById(R.id.cardViewFavProperties);
+
+            mView = view;
+        }
+
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+    }
+}

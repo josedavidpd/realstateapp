@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,9 +22,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
+import com.st.jdpolonio.inmobiliapp.fragments_list.MyFavouritesListFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.PropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
+import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
 import com.st.jdpolonio.inmobiliapp.models.User;
+import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
 import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
@@ -36,7 +40,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnListFragmentPropertiesListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnListFragmentPropertiesListener, OnListMyFavouritesListener {
 
     private Toolbar toolbar;
     private FloatingActionButton fab;
@@ -74,9 +78,10 @@ public class DashboardActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         hideItems();
+        f = new PropertiesListFragment();
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, new PropertiesListFragment(), "mainF")
+                .add(R.id.container, f, "mainF")
                 .commit();
     }
 
@@ -89,9 +94,11 @@ public class DashboardActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+
             super.onBackPressed();
         }
     }
@@ -119,13 +126,27 @@ public class DashboardActivity extends AppCompatActivity
     /** Menú lateral **/
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        f = null;
 
         if (id == R.id.nav_properties) {
+
+            fab.show();
             f = new PropertiesListFragment();
+
+            toolbar.setTitle("Inmuebles");
             getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "propertiesFragment").commit();
 
+
+
+
         } else if (id == R.id.nav_favorites) {
+
+
+            f = new MyFavouritesListFragment();
+            toolbar.setTitle("Favoritos");
+            fab.hide();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "favsPropertiesFragment").commit();
+
 
 
         } else if (id == R.id.nav_myproperties) {
@@ -172,6 +193,8 @@ public class DashboardActivity extends AppCompatActivity
 
         }
 
+    //Este comentario es para jose david, ere un tonto tio
+        //todo el dia pidiendome ayuda tssssss
 
     }
 
@@ -202,22 +225,22 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClickFav(ImageView ic_fav, String id_property, User user) {
+    public void onClickFav(ImageView ic_fav, String id_property) {
 
-        addToFav(ic_fav, id_property, user);
+        addToFav(ic_fav, id_property);
     }
 
     @Override
-    public void onClickDeletFav(ImageView ic_fav, String id_property, User user) {
-        deleteFav(ic_fav, id_property, user);
+    public void onClickDeletFav(ImageView ic_fav, String id_property) {
+        deleteFav(ic_fav, id_property);
 
     }
 
-    public void addToFav(final ImageView ic_fav, String id_property, User user) {
+    public void addToFav(final ImageView ic_fav, String id_property) {
         PropertyService service = ServiceGenerator.createService(PropertyService.class,
                 Util.getToken(DashboardActivity.this), TipoAutenticacion.JWT);
 
-        Call<UserResponse> call = service.addToFav(id_property, user);
+        Call<UserResponse> call = service.addToFav(id_property);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
@@ -239,11 +262,11 @@ public class DashboardActivity extends AppCompatActivity
         });
     }
 
-    public void deleteFav(final ImageView ic_fav, String id_property, User user) {
+    public void deleteFav(final ImageView ic_fav, String id_property) {
         PropertyService service = ServiceGenerator.createService(PropertyService.class,
                 Util.getToken(DashboardActivity.this), TipoAutenticacion.JWT);
 
-        Call<UserResponse> call = service.deleteFav(id_property, user);
+        Call<UserResponse> call = service.deleteFav(id_property);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
@@ -263,5 +286,15 @@ public class DashboardActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    @Override
+    public void onClickPropfav(PropertyFavResponse property) {
+        Intent details = new Intent(DashboardActivity.this, PropertyDetailActivity.class);
+        details.putExtra("PROPERTY_ID", property.getId());
+        details.putExtra("PROPERTY_NAME", property.getTitle());
+        details.putExtra("PROPERTY_ADDRESS", property.getAddress());
+        startActivity(details);
+
     }
 }

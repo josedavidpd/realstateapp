@@ -75,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/property_metros" />
+            app:layout_constraintTop_toBottomOf="@+id/property_fav_metros" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -116,12 +116,12 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/ubuntu_light"
             android:text="20"
-            app:layout_constraintEnd_toStartOf="@+id/property_metros"
+            app:layout_constraintEnd_toStartOf="@+id/property_fav_metros"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
             app:layout_constraintTop_toBottomOf="@+id/prop_detail_address" />
 
         <TextView
-            android:id="@+id/property_metros"
+            android:id="@+id/property_fav_metros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -219,8 +219,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/ubuntu_light"
             android:text="TextoTextoTexto"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -230,6 +232,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="299dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="371dp" />
 
 
     </android.support.constraint.ConstraintLayout>
