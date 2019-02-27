@@ -23,6 +23,9 @@ import com.st.jdpolonio.inmobiliapp.responses.SingleResponseContainer;
 import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.services.PropertyService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +36,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
     private SliderLayout sliderLayout;
     private TextView title_prop, price_prop, address_prop, rooms_prop, size_prop, createdAt_prop, description_prop;
     private ImageView iv_map;
+    private ArrayList<String> photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,6 @@ public class PropertyDetailActivity extends AppCompatActivity {
         sliderLayout.setScrollTimeInSec(5);
         setSliderViews();
         setTexts();
-      //  findOneProperty();
         onClickMapBtn();
 
     }
@@ -104,29 +107,40 @@ public class PropertyDetailActivity extends AppCompatActivity {
 
     private void setSliderViews() {
 
-        for (int i = 0; i <= 3; i++) {
 
-            DefaultSliderView sliderView = new DefaultSliderView(this);
+        final DefaultSliderView sliderView = new DefaultSliderView(PropertyDetailActivity.this);
+        PropertyService service = ServiceGenerator.createService(PropertyService.class);
+        Call<SingleResponseContainer> call = service.findOne(property_id);
+        call.enqueue(new Callback<SingleResponseContainer>() {
+            @Override
+            public void onResponse(Call<SingleResponseContainer> call, Response<SingleResponseContainer> response) {
+                if (response.isSuccessful()) {
+                    if (response.body().getRows().getPhotos().size() == 0) {
+                        sliderView.setImageUrl("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG");
+                        sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+                        sliderLayout.addSliderView(sliderView);
+                    } else {
+                        List<String> photos = new ArrayList<>(response.body().getRows().getPhotos());
+                        for (int i = 0; i <= photos.size(); i++) {
 
-            switch (i) {
-                case 0:
-                    sliderView.setImageUrl("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG");
-                    break;
-                case 1:
-                    sliderView.setImageUrl("https://estudibasic.es/wp-content/uploads/2016/09/estudibasic-renders-de-interiores-3d-para-venta-inmobiliaria-1.jpg");
-                    break;
-                case 2:
-                    sliderView.setImageUrl("https://weblego.blob.core.windows.net/weblegourl/www.maspiso.com/fotos/131214201260018530fotolia_50826585_s.jpg");
-                    break;
-                case 3:
-                    sliderView.setImageUrl("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG");
-                    break;
+                            String photos_url = response.body().getRows().getPhotos().get(i);
+                            sliderView.setImageUrl(photos_url);
+                            sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+                            sliderLayout.addSliderView(sliderView);
+                        }
+                    }
+
+
+                } else {
+                    Toast.makeText(PropertyDetailActivity.this, "Error al cargar los datos", Toast.LENGTH_SHORT).show();
+                }
             }
 
-            sliderView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
-            sliderLayout.addSliderView(sliderView);
-        }
-
+            @Override
+            public void onFailure(Call<SingleResponseContainer> call, Throwable t) {
+                Toast.makeText(PropertyDetailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

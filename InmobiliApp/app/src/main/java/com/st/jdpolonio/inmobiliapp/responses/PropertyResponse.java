@@ -2,7 +2,10 @@ package com.st.jdpolonio.inmobiliapp.responses;
 
 
 import com.st.jdpolonio.inmobiliapp.models.Category;
+import com.st.jdpolonio.inmobiliapp.models.Photo;
 import com.st.jdpolonio.inmobiliapp.models.User;
+
+import java.util.List;
 
 public class PropertyResponse {
 
@@ -20,10 +23,19 @@ public class PropertyResponse {
     private String province;
     private String createdAt;
     private boolean isFav;
+    private List<String> photos;
 
 
 
     public PropertyResponse() {}
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
 
     public boolean getIsFav() {
         return isFav;

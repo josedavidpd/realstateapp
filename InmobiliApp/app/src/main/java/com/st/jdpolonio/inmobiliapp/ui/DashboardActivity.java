@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
+import com.st.jdpolonio.inmobiliapp.dialog_fragment.AddPropertyFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.MyFavouritesListFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.MyPropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.PropertiesListFragment;
@@ -37,6 +39,8 @@ import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.retrofit.TipoAutenticacion;
 import com.st.jdpolonio.inmobiliapp.services.PropertyService;
 import com.st.jdpolonio.inmobiliapp.util.Util;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -137,6 +141,20 @@ public class DashboardActivity extends AppCompatActivity
                 fab.hide();
             else
                 fab.show();
+
+            /*fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AddPropertyFragment f = AddPropertyFragment.newInstance();
+                    Fragment currentFragment = getSupportFragmentManager().findFragmentByTag("propertiesFragment");
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.detach(currentFragment);
+                    fragmentTransaction.attach(currentFragment);
+                    fragmentTransaction.commit();
+                    FragmentManager fm = getSupportFragmentManager();
+                    f.show(fm, "addPropertyFrag");
+                }
+            });*/
 
             f = new PropertiesListFragment();
 

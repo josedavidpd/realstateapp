@@ -1,5 +1,7 @@
 package com.st.jdpolonio.inmobiliapp.models;
 
+import java.util.List;
+
 public class Rows {
 
     private String id;
@@ -15,10 +17,19 @@ public class Rows {
     private String city;
     private String province;
     private String createdAt;
+    private List<String> photos;
 
 
 
     public Rows() {}
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
 
     public String getCreatedAt() {
         return createdAt;

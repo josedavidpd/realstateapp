@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
@@ -48,17 +49,26 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         holder.price.setText(String.valueOf(price));
         holder.size.setText(String.valueOf(size));
         holder.rooms.setText(String.valueOf(rooms));
+        holder.photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        if (holder.mItem.getPhotos()==null) {
+
+
+            Glide.with(ctx).load("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG").into(holder.photo);
+        } else {
+
+            Glide.with(ctx).load(holder.mItem.getPhotos().get(0)).into(holder.photo);
+        }
 
         /**Para ocultar el icono de favoritos si no estás logueado**/
         if (Util.getToken(ctx) == null) {
             holder.favourite.setVisibility(View.INVISIBLE);
         }
 
-        if (mValues.get(position).getIsFav()) {
-            holder.favourite.setImageResource(R.drawable.ic_like);
-        } else {
-            holder.favourite.setImageResource(R.drawable.ic_corazon);
-        }
+//        if (mValues.get(position).getIsFav()) {
+//            holder.favourite.setImageResource(R.drawable.ic_like);
+//        } else {
+//            holder.favourite.setImageResource(R.drawable.ic_corazon);
+//        }
 
 
         holder.favourite.setOnClickListener(new View.OnClickListener() {

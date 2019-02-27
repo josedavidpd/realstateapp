@@ -1,11 +1,12 @@
 package com.st.jdpolonio.inmobiliapp.responses;
 
 import com.st.jdpolonio.inmobiliapp.models.Category;
+import com.st.jdpolonio.inmobiliapp.models.User;
 
 public class PropertyFavResponse {
 
     private String id;
-    private String ownerId;
+    private User ownerId;
     private String title;
     private String description;
     private double price;
@@ -38,11 +39,11 @@ public class PropertyFavResponse {
         this.id = id;
     }
 
-    public String getOwnerId() {
+    public User getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(User ownerId) {
         this.ownerId = ownerId;
     }
 
