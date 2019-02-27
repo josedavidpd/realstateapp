@@ -1,19 +1,15 @@
 package com.st.jdpolonio.inmobiliapp.services;
 
 import com.st.jdpolonio.inmobiliapp.models.ResponseContainer;
-import com.st.jdpolonio.inmobiliapp.models.User;
 import com.st.jdpolonio.inmobiliapp.responses.MinePropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyAuthResponse;
-import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.SingleResponseContainer;
 import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -36,7 +32,7 @@ public interface PropertyService {
     Call<SingleResponseContainer> findOne(@Path("id_property") String id_property);
 
     @GET(BASE_URL + "/fav")
-    Call<ResponseContainer<PropertyFavResponse>> getPropsFavs();
+    Call<ResponseContainer<PropertyResponse>> getPropsFavs();
 
     @GET(BASE_URL + "/auth")
     Call<ResponseContainer<PropertyAuthResponse>> getPropAuth();

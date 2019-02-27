@@ -9,20 +9,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
-import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
+import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 
 import java.util.List;
 
 
 public class MyFavouritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavouritesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PropertyFavResponse> mValues;
+    private final List<PropertyResponse> mValues;
     private final OnListMyFavouritesListener mListener;
     private Context ctx;
 
-    public MyFavouritesRecyclerViewAdapter(Context ctx, int layout, List<PropertyFavResponse> items, OnListMyFavouritesListener listener) {
+    public MyFavouritesRecyclerViewAdapter(Context ctx, int layout, List<PropertyResponse> items, OnListMyFavouritesListener listener) {
         mValues = items;
         mListener = listener;
         this.ctx = ctx;
@@ -43,13 +44,22 @@ public class MyFavouritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavo
         holder.rooms_fav.setText(String.valueOf(holder.mItem.getRooms()));
         holder.size_fav.setText(String.valueOf(holder.mItem.getSize()));
 
+        holder.photo_fav.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        if (holder.mItem.getPhotos() == null) {
+
+
+            Glide.with(ctx).load("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG").into(holder.photo_fav);
+        } else {
+
+            Glide.with(ctx).load(holder.mItem.getPhotos().get(0)).into(holder.photo_fav);
+        }
+
         holder.cardViewFavProperties.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onClickPropfav(holder.mItem);
             }
         });
-
 
 
     }
@@ -64,7 +74,7 @@ public class MyFavouritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavo
         public final TextView address_fav, price_fav, rooms_fav, size_fav;
         public final ImageView photo_fav;
         public final CardView cardViewFavProperties;
-        public PropertyFavResponse mItem;
+        public PropertyResponse mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -46,6 +46,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         float size = holder.mItem.getSize();
         int rooms = holder.mItem.getRooms();
         holder.address.setText(holder.mItem.getAddress());
+        holder.title.setText(holder.mItem.getTitle());
         holder.price.setText(String.valueOf(price));
         holder.size.setText(String.valueOf(size));
         holder.rooms.setText(String.valueOf(rooms));
@@ -101,7 +102,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView address, price, rooms, size;
+        public final TextView address, price, rooms, size,title;
         public final ImageView photo, favourite;
         public final CardView cardViewProperties;
         public PropertyResponse mItem;
@@ -115,6 +116,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             size = view.findViewById(R.id.my_property_size);
             photo = view.findViewById(R.id.my_property_photo);
             favourite = view.findViewById(R.id.property_fav);
+            title = view.findViewById(R.id.my_property_titlee);
             cardViewProperties = view.findViewById(R.id.cardViewProperties);
 
         }

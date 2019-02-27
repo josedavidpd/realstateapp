@@ -1,13 +1,12 @@
 package com.st.jdpolonio.inmobiliapp.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,24 +22,19 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.st.jdpolonio.inmobiliapp.R;
-import com.st.jdpolonio.inmobiliapp.dialog_fragment.AddPropertyFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.MyFavouritesListFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.MyPropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.fragments_list.PropertiesListFragment;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentMyPropertiesListener;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListFragmentPropertiesListener;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
-import com.st.jdpolonio.inmobiliapp.models.User;
 import com.st.jdpolonio.inmobiliapp.responses.MinePropertyResponse;
-import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
 import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.retrofit.TipoAutenticacion;
 import com.st.jdpolonio.inmobiliapp.services.PropertyService;
 import com.st.jdpolonio.inmobiliapp.util.Util;
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -255,20 +249,58 @@ public class DashboardActivity extends AppCompatActivity
         details.putExtra("PROPERTY_SIZE", String.valueOf(property.getSize()));
         details.putExtra("PROPERTY_DESCRIPTION", property.getDescription());
         details.putExtra("PROPERTY_CREATEDAT", property.getCreatedAt());
+        details.putExtra("PROPERTY_CATEGORY", property.getCategoryId().getName());
         startActivity(details);
 
 
     }
 
     @Override
-    public void onClickFav(ImageView ic_fav, String id_property) {
+    public void onClickFav(final ImageView ic_fav, final String id_property) {
 
-        addToFav(ic_fav, id_property);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+        builder.setTitle("Añadir a favoritos");
+        builder.setMessage("¿Seguro que desea añadir este inmueble a sus favoritos?");
+        builder.setPositiveButton(R.string.addToFav, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                addToFav(ic_fav, id_property);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+
     }
 
     @Override
-    public void onClickDeletFav(ImageView ic_fav, String id_property) {
-        deleteFav(ic_fav, id_property);
+    public void onClickDeletFav(final ImageView ic_fav, final String id_property) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(DashboardActivity.this);
+        builder.setTitle("Eliminar de favoritos");
+        builder.setMessage("¿Está seguro que desea eliminar este inmueble de sus favoritos?");
+        builder.setPositiveButton(R.string.deleteFav, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteFav(ic_fav, id_property);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
 
     }
 
@@ -325,7 +357,7 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClickPropfav(PropertyFavResponse property) {
+    public void onClickPropfav(PropertyResponse property) {
         Intent details = new Intent(DashboardActivity.this, PropertyDetailActivity.class);
         details.putExtra("PROPERTY_ID", property.getId());
         details.putExtra("PROPERTY_NAME", property.getTitle());

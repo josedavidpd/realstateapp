@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=13:BF:DD:E3:CD:9E:D2:0C:86:87:17:7D:2B:DE:57:F2:C9:E2:FF:4F%3Bcom.st.jdpolonio.inmobiliapp.ui
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    13:BF:DD:E3:CD:9E:D2:0C:86:87:17:7D:2B:DE:57:F2:C9:E2:FF:4F
+
+    SHA-1 certificate fingerprint:
+    13:BF:DD:E3:CD:9E:D2:0C:86:87:17:7D:2B:DE:57:F2:C9:E2:FF:4F
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCoLl2zv57C_Jg5R_las3FfQZADzSt2l2o</string>
+</resources>

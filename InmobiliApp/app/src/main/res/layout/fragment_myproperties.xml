@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardViewMineProperties"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
+    android:layout_marginTop="7dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="10dp"
     android:orientation="horizontal">
@@ -16,8 +17,11 @@
 
         <ImageView
             android:id="@+id/my_property_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="94dp"
+            android:layout_width="0dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,19 +33,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/ubuntu_light"
+            android:fontFamily="@font/montserrat"
             android:text="500.000"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/my_property_photo" />
 
         <TextView
-            android:id="@+id/my_property_tv_euros"
+            android:id="@+id/property_tv_euros"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="3dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/ubuntu_light"
-            android:text="€"
+            android:fontFamily="@font/montserrat"
+            android:text="€/mes"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/my_property_price"
             app:layout_constraintTop_toBottomOf="@+id/my_property_photo" />
 
@@ -51,12 +61,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="6dp"
-            android:fontFamily="@font/ubuntu_light"
+            android:fontFamily="@font/montserrat"
             android:text="Calle Serrano, Madrid 41005"
-            app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_property_price" />
+            app:layout_constraintTop_toBottomOf="@+id/my_property_titlee" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -83,33 +91,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/ubuntu_light"
+            android:fontFamily="@font/montserrat"
             android:text="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/my_property_iv_rooms"
             app:layout_constraintTop_toBottomOf="@+id/my_property_address" />
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="1dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="#9e9e9e"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/my_property_rooms" />
-
         <ImageView
             android:id="@+id/my_property_iv_size"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/my_property_address"
             app:srcCompat="@drawable/ic_dimension" />
 
@@ -118,9 +116,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/ubuntu_light"
+            android:fontFamily="@font/montserrat"
             android:text="20"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/property_fav_metros"
@@ -132,13 +130,51 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/ubuntu_light"
+            android:fontFamily="@font/montserrat"
             android:text="m²"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/my_property_size"
             app:layout_constraintTop_toBottomOf="@+id/my_property_address" />
+
+        <ImageView
+            android:id="@+id/property_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/my_property_titlee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_photo"
+            app:srcCompat="@drawable/ic_corazon" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:fontFamily="@font/montserrat"
+            android:text="habs"
+            app:layout_constraintEnd_toStartOf="@+id/my_property_iv_size"
+            app:layout_constraintStart_toEndOf="@+id/my_property_rooms"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_address" />
+
+        <TextView
+            android:id="@+id/my_property_titlee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Piso en Condes de Bustillo"
+            android:textColor="#333333"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/my_property_price" />
 
     </android.support.constraint.ConstraintLayout>
 

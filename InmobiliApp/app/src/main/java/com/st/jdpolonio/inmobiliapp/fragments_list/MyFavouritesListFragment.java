@@ -14,10 +14,8 @@ import android.widget.Toast;
 
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.adapters.MyFavouritesRecyclerViewAdapter;
-import com.st.jdpolonio.inmobiliapp.adapters.MyPropertiesRecyclerViewAdapter;
 import com.st.jdpolonio.inmobiliapp.interfaces.OnListMyFavouritesListener;
 import com.st.jdpolonio.inmobiliapp.models.ResponseContainer;
-import com.st.jdpolonio.inmobiliapp.responses.PropertyFavResponse;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.retrofit.TipoAutenticacion;
@@ -75,7 +73,6 @@ public class MyFavouritesListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            //recyclerView.setAdapter(new MyFavouritesRecyclerViewAdapter(DummyContent.ITEMS, mListener));
             setData();
         }
         return view;
@@ -103,10 +100,10 @@ public class MyFavouritesListFragment extends Fragment {
 
     public void setData() {
         PropertyService service = ServiceGenerator.createService(PropertyService.class, Util.getToken(ctx), TipoAutenticacion.JWT);
-        Call<ResponseContainer<PropertyFavResponse>> call = service.getPropsFavs();
-        call.enqueue(new Callback<ResponseContainer<PropertyFavResponse>>() {
+        Call<ResponseContainer<PropertyResponse>> call = service.getPropsFavs();
+        call.enqueue(new Callback<ResponseContainer<PropertyResponse>>() {
             @Override
-            public void onResponse(Call<ResponseContainer<PropertyFavResponse>> call, Response<ResponseContainer<PropertyFavResponse>> response) {
+            public void onResponse(Call<ResponseContainer<PropertyResponse>> call, Response<ResponseContainer<PropertyResponse>> response) {
                 if(response.isSuccessful()) {
                     adapter = new MyFavouritesRecyclerViewAdapter(ctx, R.layout.fragment_myfavourites,response.body().getRows(),mListener);
                     recyclerView.setAdapter(adapter);
@@ -117,7 +114,7 @@ public class MyFavouritesListFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseContainer<PropertyFavResponse>> call, Throwable t) {
+            public void onFailure(Call<ResponseContainer<PropertyResponse>> call, Throwable t) {
 
                 Log.i("AAAAAAAA",t.getMessage());
                 Toast.makeText(ctx, t.getMessage(), Toast.LENGTH_SHORT).show();

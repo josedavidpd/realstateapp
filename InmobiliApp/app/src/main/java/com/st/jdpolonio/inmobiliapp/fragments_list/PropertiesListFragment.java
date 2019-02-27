@@ -96,6 +96,7 @@ public class PropertiesListFragment extends Fragment {
                         if(response.isSuccessful()) {
                             adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties,response.body().getRows(),mListener);
                             recyclerView.setAdapter(adapter);
+
                         } else {
                             Toast.makeText(ctx, "Error al cargar datos", Toast.LENGTH_SHORT).show();
 
@@ -148,6 +149,7 @@ public class PropertiesListFragment extends Fragment {
                 if(response.isSuccessful()) {
                     adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties,response.body().getRows(),mListener);
                     recyclerView.setAdapter(adapter);
+                    Toast.makeText(ctx, response.body().getCount()+" resultados", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ctx, "Error al cargar datos", Toast.LENGTH_SHORT).show();
 
