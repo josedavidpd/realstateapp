@@ -48,7 +48,7 @@ public class MyFavouritesRecyclerViewAdapter extends RecyclerView.Adapter<MyFavo
         if (holder.mItem.getPhotos() == null) {
 
 
-            Glide.with(ctx).load("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG").into(holder.photo_fav);
+            Glide.with(ctx).load("http://www.cafonline.com/Portals/0/Images/no-available-image.png").into(holder.photo_fav);
         } else {
 
             Glide.with(ctx).load(holder.mItem.getPhotos().get(0)).into(holder.photo_fav);

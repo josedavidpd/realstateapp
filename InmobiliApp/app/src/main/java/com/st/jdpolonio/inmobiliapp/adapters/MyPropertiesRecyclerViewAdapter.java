@@ -55,7 +55,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         if (holder.mItem.getPhotos()==null) {
 
 
-            Glide.with(ctx).load("https://www.abc.es/Media/201304/22/vallecas-solvia--644x362.JPG").into(holder.photo);
+            Glide.with(ctx).load(R.drawable.noimg).into(holder.photo);
         } else {
 
             Glide.with(ctx).load(holder.mItem.getPhotos().get(0)).into(holder.photo);
