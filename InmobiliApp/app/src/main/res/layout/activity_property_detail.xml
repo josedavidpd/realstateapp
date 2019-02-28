@@ -182,7 +182,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@+id/mapView2"
+            app:layout_constraintTop_toBottomOf="@+id/mapView"
             tools:layout_editor_absoluteX="0dp" />
 
         <TextView
@@ -190,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="68dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat"
             android:text="Descripción"
             android:textSize="16sp"
@@ -221,17 +221,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="289dp" />
 
-        <ImageView
-            android:id="@+id/iv_map"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/view2"
-            app:layout_constraintVertical_chainStyle="spread_inside"
-            app:srcCompat="@drawable/ic_marcador" />
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -250,17 +239,6 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="402dp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Ver mapa"
-            app:layout_constraintBottom_toTopOf="@+id/view3"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/iv_map" />
-
         <android.support.constraint.Guideline
             android:id="@+id/guideline6"
             android:layout_width="wrap_content"
@@ -269,9 +247,9 @@
             app:layout_constraintGuide_begin="373dp" />
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView2"
+            android:id="@+id/mapView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -280,6 +258,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view56" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Localización"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/mapView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view56" />
 
 
     </android.support.constraint.ConstraintLayout>

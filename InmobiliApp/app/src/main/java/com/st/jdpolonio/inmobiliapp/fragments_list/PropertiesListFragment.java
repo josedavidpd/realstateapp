@@ -1,7 +1,9 @@
 package com.st.jdpolonio.inmobiliapp.fragments_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -23,6 +26,9 @@ import com.st.jdpolonio.inmobiliapp.models.ResponseContainer;
 import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.services.PropertyService;
+import com.st.jdpolonio.inmobiliapp.ui.MapsActivity;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +43,7 @@ public class PropertiesListFragment extends Fragment {
     private MyPropertiesRecyclerViewAdapter adapter;
     private Context ctx;
     private RecyclerView recyclerView;
+    private Button btnmap;
 
     public PropertiesListFragment() {
     }
@@ -65,6 +72,8 @@ public class PropertiesListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_properties_list, container, false);
+
+
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
