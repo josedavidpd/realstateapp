@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -43,7 +44,7 @@ public class PropertiesListFragment extends Fragment {
     private MyPropertiesRecyclerViewAdapter adapter;
     private Context ctx;
     private RecyclerView recyclerView;
-    private Button btnmap;
+    private ProgressBar pg;
 
     public PropertiesListFragment() {
     }
@@ -72,10 +73,11 @@ public class PropertiesListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_properties_list, container, false);
+        pg = view.findViewById(R.id.pb_props);
 
 
 
-        if (view instanceof RecyclerView) {
+        if (view instanceof ConstraintLayout) {
             Context context = view.getContext();
             recyclerView = view.findViewById(R.id.listProperties);
             if (mColumnCount <= 1) {
@@ -89,7 +91,7 @@ public class PropertiesListFragment extends Fragment {
         return view;
     }
 
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -128,7 +130,7 @@ public class PropertiesListFragment extends Fragment {
                 return false;
             }
         });
-    }
+    }*/
 
 
     @Override
@@ -151,11 +153,12 @@ public class PropertiesListFragment extends Fragment {
 
     public void setData() {
         PropertyService service = ServiceGenerator.createService(PropertyService.class);
-        Call<ResponseContainer<PropertyResponse>> call = service.getProperties();
+        Call<ResponseContainer<PropertyResponse>> call = service.getProperties(30);
         call.enqueue(new Callback<ResponseContainer<PropertyResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<PropertyResponse>> call, Response<ResponseContainer<PropertyResponse>> response) {
                 if(response.isSuccessful()) {
+                    pg.setVisibility(View.GONE);
                     adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties,response.body().getRows(),mListener);
                     recyclerView.setAdapter(adapter);
                     Toast.makeText(ctx, response.body().getCount()+" resultados", Toast.LENGTH_SHORT).show();

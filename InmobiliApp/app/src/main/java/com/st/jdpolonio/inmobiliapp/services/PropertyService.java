@@ -19,7 +19,10 @@ public interface PropertyService {
     public final String BASE_URL = "/properties";
 
     @GET(BASE_URL)
-    Call<ResponseContainer<PropertyResponse>> getProperties();
+    Call<ResponseContainer<PropertyResponse>> getProperties(@Query("limit") int limit);
+
+    @GET(BASE_URL)
+    Call<ResponseContainer<PropertyResponse>> getNearProps(@Query("near") String near, @Query("limit") int limit);
 
     @POST(BASE_URL + "/fav/{id_property}")
     Call<UserResponse> addToFav(@Path("id_property") String id_property);

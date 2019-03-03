@@ -69,7 +69,7 @@ public class DashboardActivity extends AppCompatActivity
             }
         });*/
 
-        if(Util.getToken(DashboardActivity.this) == null)
+        if (Util.getToken(DashboardActivity.this) == null)
             fab.hide();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -116,7 +116,11 @@ public class DashboardActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_map) {
+            startActivity(new Intent(DashboardActivity.this, MapsActivity.class));
+            return true;
+        }else if(id == R.id.action_filter) {
+            startActivity(new Intent(DashboardActivity.this, FilterActivity.class));
             return true;
         }
 
@@ -131,7 +135,7 @@ public class DashboardActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_properties) {
-            if(Util.getToken(DashboardActivity.this) == null)
+            if (Util.getToken(DashboardActivity.this) == null)
                 fab.hide();
             else
                 fab.show();
@@ -156,8 +160,6 @@ public class DashboardActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "propertiesFragment").commit();
 
 
-
-
         } else if (id == R.id.nav_favorites) {
 
 
@@ -169,7 +171,6 @@ public class DashboardActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "favsPropertiesFragment").commit();
 
 
-
         } else if (id == R.id.nav_myproperties) {
             f = new MyPropertiesListFragment();
             toolbar.setTitle("Mis inmuebles");
@@ -178,7 +179,7 @@ public class DashboardActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.container, f, "myPropertiesFragment").commit();
 
         } else if (id == R.id.nav_profile) {
-            startActivity(new Intent(DashboardActivity.this,MyProfileActivity.class));
+            startActivity(new Intent(DashboardActivity.this, MyProfileActivity.class));
 
         } else if (id == R.id.nav_logout) {
             Util.clearSharedPreferences(DashboardActivity.this);
@@ -250,6 +251,7 @@ public class DashboardActivity extends AppCompatActivity
         details.putExtra("PROPERTY_DESCRIPTION", property.getDescription());
         details.putExtra("PROPERTY_CREATEDAT", property.getCreatedAt());
         details.putExtra("PROPERTY_CATEGORY", property.getCategoryId().getName());
+        details.putExtra("PROPERTY_LOC", property.getLoc());
         startActivity(details);
 
 
@@ -275,7 +277,6 @@ public class DashboardActivity extends AppCompatActivity
 
         AlertDialog dialog = builder.create();
         dialog.show();
-
 
 
     }

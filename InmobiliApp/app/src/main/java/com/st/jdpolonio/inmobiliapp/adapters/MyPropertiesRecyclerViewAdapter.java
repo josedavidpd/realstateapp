@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -46,13 +47,21 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
         double price = holder.mItem.getPrice();
         float size = holder.mItem.getSize();
         int rooms = holder.mItem.getRooms();
+
         holder.address.setText(holder.mItem.getAddress());
         holder.title.setText(holder.mItem.getTitle());
-        holder.price.setText(String.valueOf(price));
+
         holder.size.setText(String.valueOf(size));
         holder.rooms.setText(String.valueOf(rooms));
+
+        if(holder.mItem.getCategoryId().getName().equals("Alquiler")){
+            holder.price.setText(String.valueOf(price)+" €/mes");
+        }
+        else{
+            holder.price.setText(String.valueOf(price)+" €");
+        }
         holder.photo.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        if (holder.mItem.getPhotos()==null) {
+        if (holder.mItem.getPhotos() == null) {
 
 
             Glide.with(ctx).load(R.drawable.noimg).into(holder.photo);
@@ -103,7 +112,7 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView address, price, rooms, size,title;
+        public final TextView address, price, rooms, size, title;
         public final ImageView photo, favourite;
         public final CardView cardViewProperties;
         public PropertyResponse mItem;

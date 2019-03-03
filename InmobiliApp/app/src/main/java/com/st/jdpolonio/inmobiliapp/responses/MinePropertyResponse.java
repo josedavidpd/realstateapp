@@ -17,10 +17,19 @@ public class MinePropertyResponse {
     private String city;
     private String province;
     private String createdAt;
+    private String loc;
 
 
 
     public MinePropertyResponse() {}
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
 
     public String getCreatedAt() {
         return createdAt;

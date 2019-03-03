@@ -19,10 +19,19 @@ public class PropertyAuthResponse {
     private String province;
     private String createdAt;
     private boolean isFav;
+    private String loc;
 
 
 
     public PropertyAuthResponse() {}
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
 
     public boolean isFav() {
         return isFav;

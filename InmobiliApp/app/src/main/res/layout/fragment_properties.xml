@@ -42,20 +42,6 @@
             app:layout_constraintTop_toBottomOf="@+id/my_property_photo" />
 
         <TextView
-            android:id="@+id/property_tv_euros"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/montserrat"
-            android:text="€/mes"
-            android:textColor="#333333"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/my_property_price"
-            app:layout_constraintTop_toBottomOf="@+id/my_property_photo" />
-
-        <TextView
             android:id="@+id/my_property_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

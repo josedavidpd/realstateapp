@@ -24,10 +24,23 @@ public class PropertyResponse {
     private String createdAt;
     private boolean isFav;
     private List<String> photos;
+    private String loc;
 
 
 
     public PropertyResponse() {}
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
 
     public List<String> getPhotos() {
         return photos;

@@ -18,10 +18,19 @@ public class Rows {
     private String province;
     private String createdAt;
     private List<String> photos;
+    private String loc;
 
 
 
     public Rows() {}
+
+    public String getLoc() {
+        return loc;
+    }
+
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
 
     public List<String> getPhotos() {
         return photos;

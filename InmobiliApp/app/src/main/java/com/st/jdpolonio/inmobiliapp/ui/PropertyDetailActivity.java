@@ -41,7 +41,7 @@ import retrofit2.Response;
 
 public class PropertyDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private String property_id, title, address, rooms, price, size, description, createdAt, category_name;
+    private String property_id, title, address, rooms, price, size, description, createdAt, category_name,loc;
     private SliderLayout sliderLayout;
     private TextView title_prop, price_prop, address_prop, rooms_prop, size_prop, createdAt_prop, description_prop, category;
     private MapView mapView;
@@ -65,6 +65,7 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
             description = extras.getString("PROPERTY_DESCRIPTION");
             createdAt = extras.getString("PROPERTY_CREATEDAT");
             category_name = extras.getString("PROPERTY_CATEGORY");
+            loc = extras.getString("PROPERTY_LOC");
         }
 
         setTitle("");
@@ -84,7 +85,7 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
     /**
      * Método para convertir una dirección a LatLng
      **/
-    public LatLng getLocationFromAddress(Context context, String strAddress) {
+    /* public LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address;
@@ -105,7 +106,7 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
         }
 
         return p1;
-    }
+    }*/
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -219,7 +220,12 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        LatLng latLng = getLocationFromAddress(PropertyDetailActivity.this, address);
+        String[] latlong = loc.split(",");
+
+        double lat = Double.parseDouble(latlong[0]);
+        Double lon = Double.parseDouble(latlong[1]);
+
+        LatLng latLng = new LatLng(lat,lon);
         googleMap.setMinZoomPreference(12);
         googleMap.addMarker(new MarkerOptions()
                 .position(latLng)
