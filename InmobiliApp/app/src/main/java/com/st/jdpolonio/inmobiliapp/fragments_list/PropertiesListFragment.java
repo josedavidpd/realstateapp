@@ -3,18 +3,22 @@ package com.st.jdpolonio.inmobiliapp.fragments_list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -29,6 +33,9 @@ import com.st.jdpolonio.inmobiliapp.retrofit.ServiceGenerator;
 import com.st.jdpolonio.inmobiliapp.services.PropertyService;
 import com.st.jdpolonio.inmobiliapp.ui.MapsActivity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -45,6 +52,12 @@ public class PropertiesListFragment extends Fragment {
     private Context ctx;
     private RecyclerView recyclerView;
     private ProgressBar pg;
+    private String id_category, city;
+    private List<PropertyResponse> properties = new ArrayList<>();
+    private boolean isScrolling = false;
+    private int currentItems, totalItems, scrollOutItems;
+    private int page = 0;
+    private boolean setData = false;
 
     public PropertiesListFragment() {
     }
@@ -58,7 +71,6 @@ public class PropertiesListFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +79,8 @@ public class PropertiesListFragment extends Fragment {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
@@ -75,8 +89,11 @@ public class PropertiesListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_properties_list, container, false);
         pg = view.findViewById(R.id.pb_props);
 
-
-
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            // id_category = bundle.getString("CATEGORY");
+            city = bundle.getString("CIUDAD");
+        }
         if (view instanceof ConstraintLayout) {
             Context context = view.getContext();
             recyclerView = view.findViewById(R.id.listProperties);
@@ -85,13 +102,84 @@ public class PropertiesListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-           // recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-            setData();
+
+            if (setData == false) {
+                page = 1;
+                getDataPerPage();
+            }
+
+            /*Para ir actualizando el RecyclerView cuando se llega al final del scroll */
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+
+                    if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                        isScrolling = true;
+                    }
+                }
+
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+
+
+                    LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    currentItems = manager.getChildCount();
+                    totalItems = manager.getItemCount();
+                    scrollOutItems = manager.findFirstVisibleItemPosition();
+                    if (isScrolling && (currentItems + scrollOutItems == totalItems)) {
+                        isScrolling = false;
+                        page++;
+                        updateData();
+                    }
+
+                }
+            });
         }
+
         return view;
     }
 
-   @Override
+    public void updateData() {
+        pg.setVisibility(View.VISIBLE);
+        Map<String, String> data = new HashMap<>();
+        data.put("limit", String.valueOf(20));
+        data.put("page", String.valueOf(page));
+
+        PropertyService service = ServiceGenerator.createService(PropertyService.class);
+        Call<ResponseContainer<PropertyResponse>> call = service.getPropertiesWithQuery(data);
+        call.enqueue(new Callback<ResponseContainer<PropertyResponse>>() {
+            @Override
+            public void onResponse(Call<ResponseContainer<PropertyResponse>> call, final Response<ResponseContainer<PropertyResponse>> response) {
+                if (response.isSuccessful()) {
+
+                    pg.setVisibility(View.GONE);
+                    for (int i = 0; i < response.body().getRows().size(); i++) {
+                        properties.add(response.body().getRows().get(i));
+                    }
+
+                    adapter.notifyDataSetChanged();
+
+
+                } else {
+                    Toast.makeText(ctx, "Error al cargar datos", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseContainer<PropertyResponse>> call, Throwable t) {
+
+                Toast.makeText(ctx, "Error conexión", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -104,8 +192,9 @@ public class PropertiesListFragment extends Fragment {
                 call.enqueue(new Callback<ResponseContainer<PropertyResponse>>() {
                     @Override
                     public void onResponse(Call<ResponseContainer<PropertyResponse>> call, Response<ResponseContainer<PropertyResponse>> response) {
-                        if(response.isSuccessful()) {
-                            adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties,response.body().getRows(),mListener);
+                        if (response.isSuccessful()) {
+                            adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties, response.body().getRows(), mListener);
+
                             recyclerView.setAdapter(adapter);
 
                         } else {
@@ -151,17 +240,26 @@ public class PropertiesListFragment extends Fragment {
         mListener = null;
     }
 
-    public void setData() {
+
+
+    public void getDataPerPage() {
+        Map<String, String> data = new HashMap<>();
+        data.put("limit", String.valueOf(20));
+        data.put("page", String.valueOf(1));
+
+        //data.put("category", id_category);
+
         PropertyService service = ServiceGenerator.createService(PropertyService.class);
-        Call<ResponseContainer<PropertyResponse>> call = service.getProperties(30);
+        Call<ResponseContainer<PropertyResponse>> call = service.getPropertiesWithQuery(data);
         call.enqueue(new Callback<ResponseContainer<PropertyResponse>>() {
             @Override
             public void onResponse(Call<ResponseContainer<PropertyResponse>> call, Response<ResponseContainer<PropertyResponse>> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     pg.setVisibility(View.GONE);
-                    adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties,response.body().getRows(),mListener);
+                    properties = new ArrayList<>(response.body().getRows());
+                    adapter = new MyPropertiesRecyclerViewAdapter(ctx, R.layout.fragment_properties, properties, mListener);
                     recyclerView.setAdapter(adapter);
-                    Toast.makeText(ctx, response.body().getCount()+" resultados", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ctx, response.body().getCount() + " resultados", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ctx, "Error al cargar datos", Toast.LENGTH_SHORT).show();
 
@@ -172,8 +270,13 @@ public class PropertiesListFragment extends Fragment {
             public void onFailure(Call<ResponseContainer<PropertyResponse>> call, Throwable t) {
 
                 Toast.makeText(ctx, "Error conexión", Toast.LENGTH_SHORT).show();
+
             }
         });
+        setData = true;
+
+
     }
+
 
 }

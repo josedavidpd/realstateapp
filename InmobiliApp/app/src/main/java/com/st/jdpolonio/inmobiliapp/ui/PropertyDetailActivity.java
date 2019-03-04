@@ -41,7 +41,7 @@ import retrofit2.Response;
 
 public class PropertyDetailActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private String property_id, title, address, rooms, price, size, description, createdAt, category_name,loc;
+    private String property_id, title, address, rooms, price, size, description, createdAt, category_name, loc;
     private SliderLayout sliderLayout;
     private TextView title_prop, price_prop, address_prop, rooms_prop, size_prop, createdAt_prop, description_prop, category;
     private MapView mapView;
@@ -107,7 +107,6 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
 
         return p1;
     }*/
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -116,7 +115,12 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
 
     public void setTexts() {
         title_prop.setText(title);
-        price_prop.setText(price);
+        if(category_name.equals("Alquiler")) {
+            price_prop.setText(price+" €/mes");
+        }else {
+            price_prop.setText(price+ " €");
+        }
+
         address_prop.setText(address);
         rooms_prop.setText(rooms);
         size_prop.setText(size);
@@ -225,15 +229,28 @@ public class PropertyDetailActivity extends AppCompatActivity implements OnMapRe
         double lat = Double.parseDouble(latlong[0]);
         Double lon = Double.parseDouble(latlong[1]);
 
-        LatLng latLng = new LatLng(lat,lon);
+        LatLng latLng = new LatLng(lat, lon);
         googleMap.setMinZoomPreference(12);
-        googleMap.addMarker(new MarkerOptions()
-                .position(latLng)
-                .title(title)
-                .snippet(price + " €/mes")
-                .draggable(true)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_house))
-        );
+
+        if (category_name.equals("Alquiler")) {
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(title)
+                    .snippet(price + " €/mes")
+                    .draggable(true)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_house))
+            );
+
+        } else {
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title(title)
+                    .snippet(price + " €")
+                    .draggable(true)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_house))
+            );
+        }
+
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
     }
 }

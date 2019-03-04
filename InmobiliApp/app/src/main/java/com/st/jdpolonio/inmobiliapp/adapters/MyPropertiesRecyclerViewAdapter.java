@@ -136,4 +136,10 @@ public class MyPropertiesRecyclerViewAdapter extends RecyclerView.Adapter<MyProp
             return super.toString() + " '" + address.getText() + "'";
         }
     }
+
+    public void addProps(List<PropertyResponse> properties) {
+        for(int i=0;i<properties.size();i++) {
+            properties.add(properties.get(i));
+        }
+    }
 }

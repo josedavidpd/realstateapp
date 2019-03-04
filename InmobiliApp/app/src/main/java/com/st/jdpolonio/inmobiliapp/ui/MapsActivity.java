@@ -1,5 +1,6 @@
 package com.st.jdpolonio.inmobiliapp.ui;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.st.jdpolonio.inmobiliapp.R;
 import com.st.jdpolonio.inmobiliapp.models.ResponseContainer;
@@ -40,13 +42,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
 
+
+
         PropertyService service = ServiceGenerator.createService(PropertyService.class);
         Call<ResponseContainer<PropertyResponse>> call = service.getNearProps("-5.9731700,37.3828300", 100);
 
         call.enqueue(new Callback<ResponseContainer<PropertyResponse>>() {
             @Override
-            public void onResponse(Call<ResponseContainer<PropertyResponse>> call, Response<ResponseContainer<PropertyResponse>> response) {
+            public void onResponse(Call<ResponseContainer<PropertyResponse>> call, final Response<ResponseContainer<PropertyResponse>> response) {
                 if (response.isSuccessful()) {
+
 
                     for (int i = 0; i < response.body().getRows().size(); i++) {
 
@@ -62,13 +67,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             LatLng loc_marker = new LatLng(lat, lon);
                             LatLng seville = new LatLng(37.3828300, -5.9731700);
-                            mMap.addMarker(new MarkerOptions()
-                                    .position(loc_marker)
-                                    .title(response.body().getRows().get(i).getTitle())
-                                    .snippet(response.body().getRows().get(i).getPrice() + " €/mes")
-                                    .draggable(true)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_house))
-                            );
+                            if(response.body().getRows().get(i).getCategoryId().getName().equals("Alquiler")) {
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(loc_marker)
+                                        .title(response.body().getRows().get(i).getTitle())
+                                        .snippet(response.body().getRows().get(i).getPrice() + " €/mes")
+                                        .draggable(true)
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_house))
+                                );
+                            }else {
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(loc_marker)
+                                        .title(response.body().getRows().get(i).getTitle())
+                                        .snippet(response.body().getRows().get(i).getPrice() + " €")
+                                        .draggable(true)
+                                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_house))
+                                );
+                            }
+
 
 
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(seville, 10));

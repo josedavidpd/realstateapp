@@ -7,19 +7,25 @@ import com.st.jdpolonio.inmobiliapp.responses.PropertyResponse;
 import com.st.jdpolonio.inmobiliapp.responses.SingleResponseContainer;
 import com.st.jdpolonio.inmobiliapp.responses.UserResponse;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface PropertyService {
 
     public final String BASE_URL = "/properties";
 
+   /* @GET(BASE_URL)
+    Call<ResponseContainer<PropertyResponse>> getProperties(@Query("limit") int limit);*/
+
     @GET(BASE_URL)
-    Call<ResponseContainer<PropertyResponse>> getProperties(@Query("limit") int limit);
+    Call<ResponseContainer<PropertyResponse>> getPropertiesWithQuery(@QueryMap Map<String, String> options);
 
     @GET(BASE_URL)
     Call<ResponseContainer<PropertyResponse>> getNearProps(@Query("near") String near, @Query("limit") int limit);

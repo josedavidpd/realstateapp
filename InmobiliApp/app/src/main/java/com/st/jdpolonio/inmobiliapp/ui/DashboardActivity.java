@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -50,6 +51,7 @@ public class DashboardActivity extends AppCompatActivity
     private ImageView userPicture;
     private TextView userName, userEmail;
     private Fragment f;
+    private String id_category, ciudad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,12 @@ public class DashboardActivity extends AppCompatActivity
         toolbar.setTitle("Inmuebles");
         setSupportActionBar(toolbar);
         getInfoUser();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            ciudad = extras.getString("CITY");
+            id_category = extras.getString("ID_CATEGORY");
+
+        }
 
         /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,10 +89,16 @@ public class DashboardActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         hideItems();
-        f = new PropertiesListFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("CATEGORY", id_category);
+        bundle.putString("CIUDAD", ciudad);
+        Fragment ff = new PropertiesListFragment();
+        ff.setArguments(bundle);
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.container, f, "mainF")
+                .add(R.id.container, ff, "mainF")
                 .commit();
     }
 
@@ -119,7 +133,7 @@ public class DashboardActivity extends AppCompatActivity
         if (id == R.id.action_map) {
             startActivity(new Intent(DashboardActivity.this, MapsActivity.class));
             return true;
-        }else if(id == R.id.action_filter) {
+        } else if (id == R.id.action_filter) {
             startActivity(new Intent(DashboardActivity.this, FilterActivity.class));
             return true;
         }
