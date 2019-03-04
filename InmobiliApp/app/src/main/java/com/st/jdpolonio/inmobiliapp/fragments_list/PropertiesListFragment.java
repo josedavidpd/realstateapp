@@ -91,7 +91,7 @@ public class PropertiesListFragment extends Fragment {
         return view;
     }
 
-   /* @Override
+   @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -130,7 +130,7 @@ public class PropertiesListFragment extends Fragment {
                 return false;
             }
         });
-    }*/
+    }
 
 
     @Override

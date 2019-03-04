@@ -41,7 +41,7 @@ public interface PropertyService {
     Call<ResponseContainer<PropertyAuthResponse>> getPropAuth();
 
     @GET(BASE_URL)
-    Call<ResponseContainer<PropertyResponse>> query(@Query("q") String query);
+    Call<ResponseContainer<PropertyResponse>> query(@Query("city") String city);
 
     @GET(BASE_URL + "/mine")
     Call<ResponseContainer<MinePropertyResponse>> getMyProps();

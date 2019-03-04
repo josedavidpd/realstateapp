@@ -2,7 +2,6 @@ package com.st.jdpolonio.inmobiliapp.responses;
 
 
 import com.st.jdpolonio.inmobiliapp.models.Category;
-import com.st.jdpolonio.inmobiliapp.models.Photo;
 import com.st.jdpolonio.inmobiliapp.models.User;
 
 import java.util.List;
